@@ -1,4 +1,5 @@
-use crate::utils::{Direction, Grid2D, move_in_direction};
+use crate::utils::direction::{Direction, move_in_direction};
+use crate::utils::grid::Grid2D;
 use std::collections::HashMap;
 
 type PaperGrid = HashMap<(i32, i32), char>;
