@@ -63,8 +63,8 @@ pub fn main() {
     let input_lines = crate::utils::read_lines("input/day05.txt");
 
     assert_eq!(part1(&test_lines), 3);
-    println!("Day 4 part 1 answer: {}", part1(&input_lines));
+    println!("Day 5 part 1 answer: {}", part1(&input_lines));
 
     assert_eq!(part2(&test_lines), 14);
-    println!("Day 4 part 2 answer: {}", part2(&input_lines));
+    println!("Day 5 part 2 answer: {}", part2(&input_lines));
 }
