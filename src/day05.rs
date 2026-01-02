@@ -21,7 +21,6 @@ fn prep_data(lines: &Vec<String>) -> (Vec<(i64, i64)>, Vec<i64>) {
 }
 
 fn part1(lines: &Vec<String>) -> i32 {
-    let mut answer = 0;
     let (ranges, ids) = prep_data(lines);
 
     // check each id against the ranges
