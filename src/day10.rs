@@ -1,6 +1,6 @@
 use std::collections::{HashSet, VecDeque};
-use z3::ast::Int;
 use z3::Solver;
+use z3::ast::Int;
 
 type Lights = Vec<u8>;
 type Buttons = Vec<Vec<usize>>;
@@ -136,10 +136,14 @@ impl Machine {
             panic!("No solution found");
         }
 
-        solver.solutions(button_presses, true).map(|s| {
-            // println!("Solution: {:?}", s);
-            s.iter().map(|v| v.as_u64().unwrap() as usize).sum()
-        }).min().unwrap()
+        solver
+            .solutions(button_presses, true)
+            .map(|s| {
+                // println!("Solution: {:?}", s);
+                s.iter().map(|v| v.as_u64().unwrap() as usize).sum()
+            })
+            .min()
+            .unwrap()
     }
 }
 
