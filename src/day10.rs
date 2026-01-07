@@ -89,23 +89,6 @@ impl Machine {
         unreachable!("No solution found");
     }
 
-    fn press_button2(&self, joltages: &Joltages, button_index: usize) -> Joltages {
-        let mut new = joltages.clone();
-        for &i in &self.buttons[button_index] {
-            new[i] += 1;
-        }
-        new
-    }
-
-    fn joltage_state_valid(&self, state: &Joltages) -> bool {
-        for (i, &j) in state.iter().enumerate() {
-            if j > self.joltages[i] {
-                return false;
-            }
-        }
-        true
-    }
-
     // Using Z3 solver to find minimal button presses as this is a linear programming problem
     // Not very fast but works for now
     fn solve_joltages(&self) -> usize {

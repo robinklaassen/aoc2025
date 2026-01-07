@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 type Present = Vec<Vec<u8>>;
 type PresentColl = Vec<Present>;
 type Regions = Vec<String>;

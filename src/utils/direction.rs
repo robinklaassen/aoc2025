@@ -23,6 +23,7 @@ impl Direction {
         }
     }
 
+    #[allow(dead_code)]
     pub fn straight_directions() -> Vec<Direction> {
         vec![
             Direction::Up,

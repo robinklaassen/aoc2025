@@ -13,16 +13,18 @@ mod day12;
 mod utils;
 
 fn main() {
-    // day01::main();
-    // day02::main();
-    // day03::main();
-    // day04::main();
-    // day05::main();
-    // day06::main();
-    // day07::main();
-    // day08::main();
-    // day09::main();
-    // day10::main();
-    // day11::main();
+    day01::main();
+    day02::main();
+    day03::main();
+    day04::main();
+    day05::main();
+    day06::main();
+    day07::main();
+    day08::main();
+    day09::main();
+    day10::main();
+    day11::main();
     day12::main();
+
+    // TODO slow answers: 9-2 (geo), 10-2 (z3)
 }

@@ -1,9 +1,9 @@
-use std::{collections::HashMap, hash::RandomState};
+use std::collections::HashMap;
 
 use petgraph::{
     Graph,
-    algo::{all_simple_paths, has_path_connecting},
-    graph::{self, DiGraph, NodeIndex},
+    algo::has_path_connecting,
+    graph::{DiGraph, NodeIndex},
 };
 
 fn construct_graph(lines: &Vec<String>) -> (Graph<&str, usize>, HashMap<&str, NodeIndex>) {
@@ -75,7 +75,7 @@ fn part2(lines: &Vec<String>) -> usize {
     let fft = node_indices.get("fft").unwrap();
     let out = node_indices.get("out").unwrap();
 
-    let mut order = (dac, fft);
+    let order;
     if has_path_connecting(&graph, *dac, *fft, None) {
         order = (dac, fft);
         println!("Path from dac to fft");
