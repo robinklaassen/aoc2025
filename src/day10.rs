@@ -91,6 +91,8 @@ impl Machine {
 
     // Using Z3 solver to find minimal button presses as this is a linear programming problem
     // Not very fast but works for now
+    // Should probably try to make it search for optimal solution instead of iterating myself
+    // Could also try to use pumpkin_solver crate, purely rust
     fn solve_joltages(&self) -> usize {
         let button_presses: Vec<Int> = (0..self.buttons.len())
             .map(|i| Int::fresh_const(&i.to_string()))

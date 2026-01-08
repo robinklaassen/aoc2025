@@ -1,3 +1,5 @@
+use std::cmp::Reverse;
+
 use geo::{Contains, Coord, LineString, Polygon, Rect};
 use itertools::Itertools;
 
@@ -25,22 +27,51 @@ fn part1(lines: &Vec<String>) -> usize {
         .unwrap()
 }
 
+fn ordered_pairs(points: &Vec<Coord>) -> Vec<(Coord, Coord)> {
+    let mut output: Vec<(Coord, Coord)> = Vec::new();
+
+    for i in 0..points.len() {
+        for j in i + 1..points.len() {
+            output.push((points[i], points[j]))
+        }
+    }
+
+    // sort by negative area to get highest area first
+    output.sort_unstable_by_key(|(p1, p2)| Reverse(rect_area(p1, p2)));
+
+    output
+}
+
 // This solution works but is relatively slow
+// Ideas to optimize:
+// 1) this checks ALL pairs, how about first ordering pairs on rect size then sort descending? first that fits is answer
+// 2) nested index loops is cheaper than itertools combinations (second one allocates vecs on the heap)
 fn part2(lines: &Vec<String>) -> usize {
     let points: Vec<Coord> = lines.iter().map(|l| line_to_coord(l)).collect();
     let polygon = Polygon::new(LineString::from(points.clone()), vec![]);
 
-    points
-        .iter()
-        .combinations(2)
-        .filter(|pair| {
-            // check if rectangle formed by pair is within polygon
-            let rect = Rect::new(pair[0].clone(), pair[1].clone());
-            polygon.contains(&rect)
-        })
-        .map(|pair| rect_area(pair[0], pair[1]))
-        .max()
-        .unwrap()
+    // this is a test but it might be even slower >_<
+    let ordered_pairs = ordered_pairs(&points);
+    for pair in ordered_pairs {
+        let rect = Rect::new(pair.0, pair.1);
+        if polygon.contains(&rect) {
+            return rect_area(&pair.0, &pair.1);
+        }
+    }
+
+    0 // default loop exhaustion
+
+    // points
+    //     .iter()
+    //     .combinations(2)
+    //     .filter(|pair| {
+    //         // check if rectangle formed by pair is within polygon
+    //         let rect = Rect::new(pair[0].clone(), pair[1].clone());
+    //         polygon.contains(&rect)
+    //     })
+    //     .map(|pair| rect_area(pair[0], pair[1]))
+    //     .max()
+    //     .unwrap()
 }
 
 pub fn main() {
