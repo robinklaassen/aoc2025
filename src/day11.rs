@@ -43,8 +43,8 @@ fn dfs(
     target: &NodeIndex,
     visited: &mut HashMap<NodeIndex, usize>,
 ) -> usize {
-    if visited.contains_key(&current) {
-        return visited[&current];
+    if visited.contains_key(current) {
+        return visited[current];
     }
 
     if current == target {
@@ -56,9 +56,9 @@ fn dfs(
         path_count += dfs(graph, &neighbor, target, visited);
     }
 
-    visited.insert(current.clone(), path_count);
+    visited.insert(*current, path_count);
 
-    return path_count;
+    path_count
 }
 
 fn part1(lines: &Vec<String>) -> usize {
@@ -78,10 +78,10 @@ fn part2(lines: &Vec<String>) -> usize {
     let order;
     if has_path_connecting(&graph, *dac, *fft, None) {
         order = (dac, fft);
-        println!("Path from dac to fft");
+        // println!("Path from dac to fft");
     } else if has_path_connecting(&graph, *fft, *dac, None) {
         order = (fft, dac);
-        println!("Path from fft to dac");
+        // println!("Path from fft to dac");
     } else {
         panic!("No path between dac and fft");
     }
@@ -100,6 +100,5 @@ pub fn main() {
 
     let test_lines2 = crate::utils::read_lines("input_test/day11_2.txt");
     assert_eq!(part2(&test_lines2), 2);
-    println!("Day 11 part 2 test passed");
     println!("Day 11 part 2 answer: {}", part2(&input_lines));
 }

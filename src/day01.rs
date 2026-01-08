@@ -11,7 +11,7 @@ fn parse_line(line: String) -> i32 {
 }
 
 fn count_zero_passes(start: i32, rotation: i32) -> i32 {
-    if start < 0 || start >= 100 {
+    if !(0..100).contains(&start) {
         panic!("Start has incorrect value: {start}");
     }
 

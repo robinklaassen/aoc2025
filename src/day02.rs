@@ -29,7 +29,7 @@ fn is_invalid(num: i64) -> bool {
 
 fn part1(line: &String) -> i64 {
     let mut answer = 0;
-    let ranges = parse_line(&line);
+    let ranges = parse_line(line);
 
     for (start, end) in ranges {
         answer += (start..=end).filter(|x| is_invalid(*x)).sum::<i64>()
@@ -49,7 +49,7 @@ fn is_invalid2(num: i64) -> bool {
     // use the new extract_block function!
     let length = num.to_string().len();
     for block_size in 1..=(length / 2) {
-        if length % block_size != 0 {
+        if !length.is_multiple_of(block_size) {
             continue;
         } // for example 5 can never be invalid in segments of 2
         let mut all_equal = true;
@@ -73,7 +73,7 @@ fn is_invalid2(num: i64) -> bool {
 
 fn part2(line: &String) -> i64 {
     let mut answer = 0;
-    let ranges = parse_line(&line);
+    let ranges = parse_line(line);
 
     for (start, end) in ranges {
         answer += (start..=end).filter(|x| is_invalid2(*x)).sum::<i64>()
@@ -87,24 +87,24 @@ pub fn main() {
         fs::read_to_string("input_test/day02.txt").expect("should be able to read file");
     let input_line = fs::read_to_string("input/day02.txt").expect("should be able to read file");
 
-    assert_eq!(is_invalid(11), true);
-    assert_eq!(is_invalid(1010), true);
-    assert_eq!(is_invalid(446446), true);
+    assert!(is_invalid(11));
+    assert!(is_invalid(1010));
+    assert!(is_invalid(446446));
 
-    assert_eq!(is_invalid(12), false);
-    assert_eq!(is_invalid(123), false);
-    assert_eq!(is_invalid(700234098), false);
+    assert!(!is_invalid(12));
+    assert!(!is_invalid(123));
+    assert!(!is_invalid(700234098));
 
     assert_eq!(part1(&test_line), 1227775554);
     println!("Day 2 part 1 answer: {}", part1(&input_line));
 
-    assert_eq!(is_invalid2(111), true);
-    assert_eq!(is_invalid2(1010), true);
-    assert_eq!(is_invalid2(824824824), true);
+    assert!(is_invalid2(111));
+    assert!(is_invalid2(1010));
+    assert!(is_invalid2(824824824));
 
-    assert_eq!(is_invalid2(10), false);
-    assert_eq!(is_invalid2(200), false);
-    assert_eq!(is_invalid2(3003), false);
+    assert!(!is_invalid2(10));
+    assert!(!is_invalid2(200));
+    assert!(!is_invalid2(3003));
 
     assert_eq!(part2(&test_line), 4174379265);
     println!("Day 2 part 2 answer: {}", part2(&input_line));

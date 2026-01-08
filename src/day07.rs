@@ -16,7 +16,7 @@ fn part1(lines: &Vec<String>) -> i32 {
             continue;
         }
 
-        let splitter_indices = find_all_char_indices(&line, '^');
+        let splitter_indices = find_all_char_indices(line, '^');
         for i in splitter_indices {
             if !tachyon_columns.contains(&i) {
                 continue;
@@ -42,13 +42,13 @@ fn part2(lines: &Vec<String>) -> i64 {
             continue;
         }
 
-        let splitter_indices = find_all_char_indices(&line, '^');
+        let splitter_indices = find_all_char_indices(line, '^');
         for i in splitter_indices {
             if !beams.contains_key(&i) {
                 continue;
             }
 
-            let count = beams.get(&i).unwrap().clone();
+            let count = *beams.get(&i).unwrap();
             beams.remove(&i);
             *beams.entry(i - 1).or_insert(0) += count;
             *beams.entry(i + 1).or_insert(0) += count;

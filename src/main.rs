@@ -25,6 +25,4 @@ fn main() {
     day10::main();
     day11::main();
     day12::main();
-
-    // TODO slow answers: 9-2 (geo), 10-2 (z3)
 }

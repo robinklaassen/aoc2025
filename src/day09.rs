@@ -51,6 +51,7 @@ fn part2(lines: &Vec<String>) -> usize {
     let polygon = Polygon::new(LineString::from(points.clone()), vec![]);
 
     // this is a test but it might be even slower >_<
+    // although it is faster if you run a release build
     let ordered_pairs = ordered_pairs(&points);
     for pair in ordered_pairs {
         let rect = Rect::new(pair.0, pair.1);

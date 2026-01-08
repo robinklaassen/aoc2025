@@ -1,5 +1,5 @@
 use std::collections::{HashSet, VecDeque};
-use z3::Solver;
+use z3::Optimize;
 use z3::ast::Int;
 
 type Lights = Vec<u8>;
@@ -89,20 +89,17 @@ impl Machine {
         unreachable!("No solution found");
     }
 
-    // Using Z3 solver to find minimal button presses as this is a linear programming problem
-    // Not very fast but works for now
-    // Should probably try to make it search for optimal solution instead of iterating myself
-    // Could also try to use pumpkin_solver crate, purely rust
+    // Using Z3 optimizer to find minimal button presses as this is an optimization problem
     fn solve_joltages(&self) -> usize {
         let button_presses: Vec<Int> = (0..self.buttons.len())
             .map(|i| Int::fresh_const(&i.to_string()))
             .collect();
 
-        let solver = Solver::new();
+        let opt = Optimize::new();
 
         // constraints: all button presses >= 0
         for btn in &button_presses {
-            solver.assert(&btn.ge(0));
+            opt.assert(&btn.ge(0));
         }
 
         // constraints: for each joltage limit, sum of presses of buttons affecting it == limit
@@ -112,23 +109,27 @@ impl Machine {
                 if !btn.contains(&i) {
                     continue;
                 }
-                expr = expr + &button_presses[btn_idx];
+                expr += &button_presses[btn_idx];
             }
-            solver.assert(&expr.eq(&Int::from_u64(*joltage_limit as u64)));
+            opt.assert(&expr.eq(Int::from_u64(*joltage_limit as u64)));
         }
 
-        if solver.check() != z3::SatResult::Sat {
+        // Objective: minimize total number of presses
+        let mut total = Int::from_i64(0);
+        for btn in &button_presses {
+            total += btn;
+        }
+        opt.minimize(&total);
+
+        if opt.check(&[]) != z3::SatResult::Sat {
             panic!("No solution found");
         }
 
-        solver
-            .solutions(button_presses, true)
-            .map(|s| {
-                // println!("Solution: {:?}", s);
-                s.iter().map(|v| v.as_u64().unwrap() as usize).sum()
-            })
-            .min()
-            .unwrap()
+        let model = opt.get_model().unwrap();
+        button_presses
+            .iter()
+            .map(|b| model.eval(b, true).unwrap().as_u64().unwrap() as usize)
+            .sum()
     }
 }
 
@@ -150,6 +151,5 @@ pub fn main() {
     println!("Day 10 part 1 answer: {}", part1(&input_lines));
 
     assert_eq!(part2(&test_lines), 33);
-    println!("Day 10 part 2 test passed");
     println!("Day 10 part 2 answer: {}", part2(&input_lines));
 }
