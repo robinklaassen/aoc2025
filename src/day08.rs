@@ -29,7 +29,7 @@ impl Point3D {
     }
 }
 
-fn sorted_pairwise_distances(points: &Vec<Point3D>) -> Vec<((&Point3D, &Point3D), f64)> {
+fn sorted_pairwise_distances(points: &[Point3D]) -> Vec<((&Point3D, &Point3D), f64)> {
     let mut distances: Vec<_> = points
         .iter()
         .combinations(2)
@@ -39,7 +39,7 @@ fn sorted_pairwise_distances(points: &Vec<Point3D>) -> Vec<((&Point3D, &Point3D)
     distances
 }
 
-pub fn part1(lines: &Vec<String>, num_connections: usize) -> i64 {
+pub fn part1(lines: &[String], num_connections: usize) -> i64 {
     let points: Vec<Point3D> = lines.iter().map(|line| Point3D::from_line(line)).collect();
     let mut groups: HashMap<&Point3D, usize> =
         points.iter().enumerate().map(|(i, p)| (p, i)).collect();
@@ -70,7 +70,7 @@ pub fn part1(lines: &Vec<String>, num_connections: usize) -> i64 {
     counts.values().sorted().rev().take(3).product::<usize>() as i64
 }
 
-fn part2(lines: &Vec<String>) -> i64 {
+fn part2(lines: &[String]) -> i64 {
     let mut answer = 0;
     let points: Vec<Point3D> = lines.iter().map(|line| Point3D::from_line(line)).collect();
     let mut groups: HashMap<&Point3D, usize> =

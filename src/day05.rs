@@ -1,4 +1,4 @@
-fn prep_data(lines: &Vec<String>) -> (Vec<(i64, i64)>, Vec<i64>) {
+fn prep_data(lines: &[String]) -> (Vec<(i64, i64)>, Vec<i64>) {
     let mut is_range_part = true;
     let mut ranges: Vec<(i64, i64)> = Vec::new();
     let mut ids: Vec<i64> = Vec::new();
@@ -20,7 +20,7 @@ fn prep_data(lines: &Vec<String>) -> (Vec<(i64, i64)>, Vec<i64>) {
     (ranges, ids)
 }
 
-fn part1(lines: &Vec<String>) -> i32 {
+fn part1(lines: &[String]) -> i32 {
     let (ranges, ids) = prep_data(lines);
 
     // check each id against the ranges
@@ -29,7 +29,7 @@ fn part1(lines: &Vec<String>) -> i32 {
         .count() as i32
 }
 
-fn part2(lines: &Vec<String>) -> i64 {
+fn part2(lines: &[String]) -> i64 {
     let mut answer = 0;
     let (mut ranges, _) = prep_data(lines);
 
@@ -38,16 +38,15 @@ fn part2(lines: &Vec<String>) -> i64 {
 
     // merge overlapping ranges by comparing current end to next start
     let (mut start, mut end) = ranges[0];
-    for i in 1..ranges.len() {
-        let (next_start, next_end) = ranges[i];
-        if next_start <= end {
+    for (next_start, next_end) in ranges.iter().skip(1) {
+        if *next_start <= end {
             // ranges overlap, extend the end if needed
-            end = end.max(next_end);
+            end = end.max(*next_end);
         } else {
             // no overlap, add the current range to the answer and start a new one
             answer += end - start + 1;
-            start = next_start;
-            end = next_end;
+            start = *next_start;
+            end = *next_end;
         }
     }
 

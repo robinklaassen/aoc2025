@@ -28,12 +28,12 @@ fn get_accessible(grid: &PaperGrid) -> Vec<(i32, i32)> {
     accessible
 }
 
-fn part1(lines: &Vec<String>) -> i32 {
+fn part1(lines: &[String]) -> i32 {
     let grid = HashMap::from_lines(lines);
     get_accessible(&grid).len() as i32
 }
 
-fn part2(lines: &Vec<String>) -> i32 {
+fn part2(lines: &[String]) -> i32 {
     let mut grid = HashMap::from_lines(lines);
     let mut answer = 0;
     let mut done = false;

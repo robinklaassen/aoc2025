@@ -6,7 +6,7 @@ fn find_all_char_indices(s: &str, target: char) -> Vec<usize> {
         .collect()
 }
 
-fn part1(lines: &Vec<String>) -> i32 {
+fn part1(lines: &[String]) -> i32 {
     let mut split_count = 0;
     let mut tachyon_columns: HashSet<usize> = HashSet::new();
 
@@ -31,7 +31,7 @@ fn part1(lines: &Vec<String>) -> i32 {
     split_count
 }
 
-fn part2(lines: &Vec<String>) -> i64 {
+fn part2(lines: &[String]) -> i64 {
     // This is going to be basically the same as part 1 but with a map instead of a set so we can count beams
     // I could refactor to combine both approaches, but I'll leave it for history's sake
     let mut beams: HashMap<usize, i64> = HashMap::new();

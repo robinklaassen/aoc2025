@@ -6,7 +6,7 @@ use petgraph::{
     graph::{DiGraph, NodeIndex},
 };
 
-fn construct_graph(lines: &Vec<String>) -> (Graph<&str, usize>, HashMap<&str, NodeIndex>) {
+fn construct_graph(lines: &[String]) -> (Graph<&str, usize>, HashMap<&str, NodeIndex>) {
     let mut graph: Graph<&str, usize> = DiGraph::new();
     let mut node_indices: HashMap<&str, NodeIndex> = HashMap::new();
 
@@ -61,14 +61,14 @@ fn dfs(
     path_count
 }
 
-fn part1(lines: &Vec<String>) -> usize {
+fn part1(lines: &[String]) -> usize {
     let (graph, node_indices) = construct_graph(lines);
     let you = node_indices.get("you").unwrap();
     let out = node_indices.get("out").unwrap();
     count_paths(&graph, you, out)
 }
 
-fn part2(lines: &Vec<String>) -> usize {
+fn part2(lines: &[String]) -> usize {
     let (graph, node_indices) = construct_graph(lines);
     let svr = node_indices.get("svr").unwrap();
     let dac = node_indices.get("dac").unwrap();

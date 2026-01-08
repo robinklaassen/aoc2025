@@ -17,7 +17,7 @@ fn rect_area(p1: &Coord, p2: &Coord) -> usize {
     width * height
 }
 
-fn part1(lines: &Vec<String>) -> usize {
+fn part1(lines: &[String]) -> usize {
     let points: Vec<Coord> = lines.iter().map(|l| line_to_coord(l)).collect();
     points
         .iter()
@@ -27,7 +27,7 @@ fn part1(lines: &Vec<String>) -> usize {
         .unwrap()
 }
 
-fn ordered_pairs(points: &Vec<Coord>) -> Vec<(Coord, Coord)> {
+fn ordered_pairs(points: &[Coord]) -> Vec<(Coord, Coord)> {
     let mut output: Vec<(Coord, Coord)> = Vec::new();
 
     for i in 0..points.len() {
@@ -46,7 +46,7 @@ fn ordered_pairs(points: &Vec<Coord>) -> Vec<(Coord, Coord)> {
 // Ideas to optimize:
 // 1) this checks ALL pairs, how about first ordering pairs on rect size then sort descending? first that fits is answer
 // 2) nested index loops is cheaper than itertools combinations (second one allocates vecs on the heap)
-fn part2(lines: &Vec<String>) -> usize {
+fn part2(lines: &[String]) -> usize {
     let points: Vec<Coord> = lines.iter().map(|l| line_to_coord(l)).collect();
     let polygon = Polygon::new(LineString::from(points.clone()), vec![]);
 

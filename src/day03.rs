@@ -1,4 +1,4 @@
-fn solve_line(line: &String, num_digits: usize) -> i64 {
+fn solve_line(line: &str, num_digits: usize) -> i64 {
     let mut output = String::new();
 
     let digits = line
@@ -19,11 +19,11 @@ fn solve_line(line: &String, num_digits: usize) -> i64 {
     output.parse::<i64>().unwrap()
 }
 
-fn part1(lines: &Vec<String>) -> i64 {
+fn part1(lines: &[String]) -> i64 {
     lines.iter().map(|line| solve_line(line, 2)).sum()
 }
 
-fn part2(lines: &Vec<String>) -> i64 {
+fn part2(lines: &[String]) -> i64 {
     lines.iter().map(|line| solve_line(line, 12)).sum()
 }
 

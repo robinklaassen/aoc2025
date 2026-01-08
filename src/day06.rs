@@ -1,4 +1,4 @@
-fn calculate(numbers: &Vec<i32>, operator: &str) -> i64 {
+fn calculate(numbers: &[i32], operator: &str) -> i64 {
     match operator {
         "+" => numbers.iter().map(|&n| n as i64).sum(),
         "*" => numbers.iter().map(|&n| n as i64).product(),
@@ -6,14 +6,14 @@ fn calculate(numbers: &Vec<i32>, operator: &str) -> i64 {
     }
 }
 
-fn part1(lines: &Vec<String>) -> i64 {
+fn part1(lines: &[String]) -> i64 {
     let mut answer = 0;
 
     // data prep
     let operators: Vec<&str> = lines.last().unwrap().split_whitespace().collect();
     let mut digits: Vec<Vec<i32>> = Vec::new();
-    for i in 0..lines.len() - 1 {
-        let row: Vec<i32> = lines[i]
+    for line in lines.iter().take(lines.len() - 1) {
+        let row: Vec<i32> = line
             .split_whitespace()
             .map(|num| num.parse::<i32>().unwrap())
             .collect();
@@ -29,7 +29,7 @@ fn part1(lines: &Vec<String>) -> i64 {
     answer
 }
 
-fn part2(lines: &Vec<String>) -> i64 {
+fn part2(lines: &[String]) -> i64 {
     let mut answer = 0;
 
     // data prep

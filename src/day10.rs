@@ -13,7 +13,7 @@ struct Machine {
 }
 
 impl Machine {
-    fn from_line(line: &String) -> Self {
+    fn from_line(line: &str) -> Self {
         let mut lights_target: Lights = Vec::new();
         let mut buttons: Buttons = Vec::new();
         let mut joltages: Joltages = Vec::new();
@@ -133,13 +133,13 @@ impl Machine {
     }
 }
 
-fn part1(lines: &Vec<String>) -> usize {
-    let machines: Vec<Machine> = lines.iter().map(Machine::from_line).collect();
+fn part1(lines: &[String]) -> usize {
+    let machines: Vec<Machine> = lines.iter().map(|l| Machine::from_line(l)).collect();
     machines.iter().map(|m| m.solve_lights()).sum()
 }
 
-fn part2(lines: &Vec<String>) -> usize {
-    let machines: Vec<Machine> = lines.iter().map(Machine::from_line).collect();
+fn part2(lines: &[String]) -> usize {
+    let machines: Vec<Machine> = lines.iter().map(|l| Machine::from_line(l)).collect();
     machines.iter().map(|m| m.solve_joltages()).sum()
 }
 

@@ -1,6 +1,6 @@
 use std::fs;
 
-fn parse_line(line: &String) -> Vec<(i64, i64)> {
+fn parse_line(line: &str) -> Vec<(i64, i64)> {
     let mut ranges: Vec<(i64, i64)> = Vec::new();
 
     for range_str in line.split(",") {
@@ -27,7 +27,7 @@ fn is_invalid(num: i64) -> bool {
     left == right
 }
 
-fn part1(line: &String) -> i64 {
+fn part1(line: &str) -> i64 {
     let mut answer = 0;
     let ranges = parse_line(line);
 
@@ -71,7 +71,7 @@ fn is_invalid2(num: i64) -> bool {
     false // default return false if no block size matched
 }
 
-fn part2(line: &String) -> i64 {
+fn part2(line: &str) -> i64 {
     let mut answer = 0;
     let ranges = parse_line(line);
 

@@ -34,7 +34,7 @@ fn count_zero_passes(start: i32, rotation: i32) -> i32 {
     zero_passes
 }
 
-fn part1(lines: &Vec<String>) -> i32 {
+fn part1(lines: &[String]) -> i32 {
     let mut position = 50;
     let mut zero_counter = 0;
     for line in lines {
@@ -47,7 +47,7 @@ fn part1(lines: &Vec<String>) -> i32 {
     zero_counter
 }
 
-fn part2(lines: &Vec<String>) -> i32 {
+fn part2(lines: &[String]) -> i32 {
     let mut position = 50;
     let mut zero_counter = 0;
     for line in lines {

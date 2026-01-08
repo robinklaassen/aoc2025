@@ -2,7 +2,7 @@ type Present = Vec<Vec<u8>>;
 type PresentColl = Vec<Present>;
 type Regions = Vec<String>;
 
-fn parse_input(lines: &Vec<String>) -> (PresentColl, Regions) {
+fn parse_input(lines: &[String]) -> (PresentColl, Regions) {
     let mut presents: PresentColl = Vec::new();
 
     let mut regions_index_start = 0;
@@ -35,7 +35,7 @@ fn parse_input(lines: &Vec<String>) -> (PresentColl, Regions) {
     (presents, regions)
 }
 
-fn part1(input_lines: &Vec<String>) -> usize {
+fn part1(input_lines: &[String]) -> usize {
     let (presents, regions) = parse_input(input_lines);
     let present_sizes: Vec<usize> = presents
         .iter()
